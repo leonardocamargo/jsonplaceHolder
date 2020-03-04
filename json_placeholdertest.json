@@ -1,0 +1,1255 @@
+{
+	"info": {
+		"_postman_id": "6d2d7b87-d316-4410-93ab-0eac639c8485",
+		"name": "Service Json PlaceHolder",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET (/posts)",
+			"item": [
+				{
+					"name": "Comments",
+					"item": [
+						{
+							"name": "posts/{{id}}/comments",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "097fb8f8-a661-472c-b2f2-4e0a0a4ef740",
+										"exec": [
+											"pm.test(\"Response time less than 1s\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+											"});",
+											"",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Content-Type is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"});",
+											"",
+											"",
+											"var schema = {",
+											"  \"type\": \"array\",",
+											"  \"items\": [",
+											"    {",
+											"      \"type\": \"object\",",
+											"      \"properties\": {",
+											"        \"postId\": {",
+											"          \"type\": \"integer\"",
+											"        },",
+											"        \"id\": {",
+											"          \"type\": \"integer\"",
+											"        },",
+											"        \"name\": {",
+											"          \"type\": \"string\"",
+											"        },",
+											"        \"email\": {",
+											"          \"type\": \"string\"",
+											"        },",
+											"        \"body\": {",
+											"          \"type\": \"string\"",
+											"        }",
+											"      },",
+											"      \"required\": [",
+											"        \"postId\",",
+											"        \"id\",",
+											"        \"name\",",
+											"        \"email\",",
+											"        \"body\"",
+											"      ]",
+											"    }",
+											"    ]",
+											"}",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var data = JSON.parse(responseBody);",
+											"    var valid = tv4.validate(data,schema,false,true);",
+											"    if (valid !== true){",
+											"        console.log(tv4.error);",
+											"    }",
+											"  pm.expect(valid).to.be.true;",
+											"",
+											"});",
+											"",
+											"",
+											"//",
+											"pm.test('Validate Id Post to response json', function () {",
+											"    ",
+											"    //Ao comparar a variavel global com o valor que estava no json, ele estava entendendo que o que estava na variavel era uma string. Tentei utilizar o ParseInt do Javascript",
+											"    //ParseInt funciona perfeitamente no Postman, porém, rodando com o CollectionRunner e Newman, ele não consegue parsear o valor da variavel global. ",
+											"    //Queria ter deixado parametrizado o valor para alteracoes e pro teste ficar mais consistente, sem valores chumbados. Mas não consegui fazer e pensar em algo a tempo.",
+											"    ",
+											"    ",
+											"    ///idPost = parseInt(pm.globals.get(\"idPost\"));",
+											"    var jsonData = pm.response.json();",
+											"    // pm.expect(jsonData.postId).to.eql(idPost);",
+											"    pm.expect(jsonData[0].postId).to.eql(1);",
+											"",
+											"});",
+											"",
+											"//Validando a relação das tabelas de comentarios e tabela de posts. ",
+											"pm.test('Validate relation db in post and comments tables', function(){",
+											"     var jsonData = pm.response.json();",
+											"     pm.expect(jsonData[0].postId).to.eql(1);",
+											"     pm.expect(jsonData[0].id).to.eql(1);",
+											"     ",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://jsonplaceholder.typicode.com/posts/1/comments",
+									"protocol": "https",
+									"host": [
+										"jsonplaceholder",
+										"typicode",
+										"com"
+									],
+									"path": [
+										"posts",
+										"1",
+										"comments"
+									]
+								},
+								"description": "request responsible to return post comments"
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "UserId",
+					"item": [
+						{
+							"name": "posts?userId={{id}}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "097fb8f8-a661-472c-b2f2-4e0a0a4ef740",
+										"exec": [
+											"pm.test(\"Response time less than 1s\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+											"});",
+											"",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Content-Type is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"});",
+											"",
+											"",
+											"var schema = {",
+											"  \"type\": \"array\",",
+											"  \"items\": [",
+											"    {",
+											"      \"type\": \"object\",",
+											"      \"properties\": {",
+											"        \"userId\": {",
+											"          \"type\": \"integer\"",
+											"        },",
+											"        \"id\": {",
+											"          \"type\": \"integer\"",
+											"        },",
+											"        \"title\": {",
+											"          \"type\": \"string\"",
+											"        },",
+											"        \"body\": {",
+											"          \"type\": \"string\"",
+											"        }",
+											"      },",
+											"      \"required\": [",
+											"        \"userId\",",
+											"        \"id\",",
+											"        \"title\",",
+											"        \"body\"",
+											"      ]",
+											"    }",
+											"    ]",
+											"}",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"    var data = JSON.parse(responseBody);",
+											"    var valid = tv4.validate(data,schema,false,true);",
+											"    if (valid !== true){",
+											"        console.log(tv4.error);",
+											"    }",
+											"  pm.expect(valid).to.be.true;",
+											"",
+											"});",
+											"",
+											"",
+											"//",
+											"pm.test('Validate UserId to response json', function () {",
+											"    ",
+											"    //Ao comparar a variavel global com o valor que estava no json, ele estava entendendo que o que estava na variavel era uma string. Tentei utilizar o ParseInt do Javascript",
+											"    //ParseInt funciona perfeitamente no Postman, porém, rodando com o CollectionRunner e Newman, ele não consegue parsear o valor da variavel global. ",
+											"    //Queria ter deixado parametrizado o valor para alteracoes e pro teste ficar mais consistente, sem valores chumbados. Mas não consegui fazer e pensar em algo a tempo.",
+											"    ",
+											"    ",
+											"    ///idPost = parseInt(pm.globals.get(\"idUser\"));",
+											"    var jsonData = pm.response.json();",
+											"    // pm.expect(jsonData.userId).to.eql(idUser);",
+											"    pm.expect(jsonData[0].userId).to.eql(1);",
+											"",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://jsonplaceholder.typicode.com/posts?userId=1",
+									"protocol": "https",
+									"host": [
+										"jsonplaceholder",
+										"typicode",
+										"com"
+									],
+									"path": [
+										"posts"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "1"
+										}
+									]
+								},
+								"description": "request responsible to return posts the determinated user"
+							},
+							"response": []
+						},
+						{
+							"name": "posts?usrsss  (Query Parameter invalid)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "097fb8f8-a661-472c-b2f2-4e0a0a4ef740",
+										"exec": [
+											"pm.test(\"Response time less than 1s\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+											"});",
+											"",
+											"",
+											"//Por ser uma rota nao conhecida, deveria retornar 404.",
+											"// Passando uma rota invalida, ele está assumindo que é a url /userId={{id}} o que é incorreto. Isso pode até obter uma falha de segurança.",
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"",
+											"pm.test(\"Content-Type is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"});",
+											"",
+											"",
+											"pm.test(\"Validate json empty to 404\", function (){",
+											"    var jsonData = pm.response.json();",
+											" pm.expect(jsonData).to.be.an('object').that.is.empty;",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://jsonplaceholder.typicode.com/posts?rsssskos221=1",
+									"protocol": "https",
+									"host": [
+										"jsonplaceholder",
+										"typicode",
+										"com"
+									],
+									"path": [
+										"posts"
+									],
+									"query": [
+										{
+											"key": "rsssskos221",
+											"value": "1"
+										}
+									]
+								},
+								"description": "request responsible to return posts the determinated user"
+							},
+							"response": []
+						},
+						{
+							"name": "posts?userId={{id Not Found}}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "097fb8f8-a661-472c-b2f2-4e0a0a4ef740",
+										"exec": [
+											"pm.test(\"Response time less than 1s\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+											"});",
+											"",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Content-Type is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"});",
+											"",
+											"",
+											"pm.test(\"Validate json empty to UserId not existent\", function (){",
+											"    var jsonData = pm.response.json();",
+											" pm.expect(jsonData).to.be.an('array').that.is.empty;",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://jsonplaceholder.typicode.com/posts?userId=3222",
+									"protocol": "https",
+									"host": [
+										"jsonplaceholder",
+										"typicode",
+										"com"
+									],
+									"path": [
+										"posts"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "3222"
+										}
+									]
+								},
+								"description": "request responsible to return posts the determinated user"
+							},
+							"response": []
+						},
+						{
+							"name": "posts?userId={{Query Parameter invalid = a}}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "097fb8f8-a661-472c-b2f2-4e0a0a4ef740",
+										"exec": [
+											"pm.test(\"Response time less than 500\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);",
+											"});",
+											"",
+											"",
+											"// Passando um parameter string, deveria retornar um Bad Request e não um 404 not found, por padroẽs.",
+											"// Mas pensando que é uma api grande e que pode crescer muito, em questão de Id's de usuario, talvez num futuro, alteraria o teste pra 404 mesmo, e o banco e aplicação mudariam pra String ou varchar",
+											"",
+											"// O teste está falhando de proposito.",
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Content-Type is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://jsonplaceholder.typicode.com/posts?userId=a",
+									"protocol": "https",
+									"host": [
+										"jsonplaceholder",
+										"typicode",
+										"com"
+									],
+									"path": [
+										"posts"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "a"
+										}
+									]
+								},
+								"description": "request responsible to return posts the determinated user"
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "/posts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9cb1d9dc-b1e7-4ca4-a9ba-d5a6857006aa",
+								"exec": [
+									"pm.test(\"Response time less than 1s\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"var schema = {",
+									"  \"type\": \"array\",",
+									"  \"items\": [",
+									"    {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"userId\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"",
+									"        \"id\": {",
+									"          \"type\": \"integer\"",
+									"        },",
+									"        \"title\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"body\": {",
+									"          \"type\": \"string\"",
+									"        }",
+									"      },",
+									"      \"required\": [",
+									"        \"userId\",",
+									"        \"id\",",
+									"        \"title\",",
+									"        \"body\"",
+									"      ]",
+									"    }",
+									"  ]",
+									"}",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"    var data = JSON.parse(responseBody);",
+									"    var valid = tv4.validate(data,schema,false,true);",
+									"    if (valid !== true){",
+									"        console.log(tv4.error);",
+									"    }",
+									"  pm.expect(valid).to.be.true;",
+									"",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followAuthorizationHeader": true,
+						"disableBodyPruning": true,
+						"followOriginalHttpMethod": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/posts",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/posts/{{id}}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9cb1d9dc-b1e7-4ca4-a9ba-d5a6857006aa",
+								"exec": [
+									"pm.test(\"Response time less than 1s\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"var schema = {",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"userId\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"title\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"body\": {",
+									"      \"type\": \"string\"",
+									"    }",
+									"  },",
+									"  \"required\": [",
+									"    \"userId\",",
+									"    \"id\",",
+									"    \"title\",",
+									"    \"body\"",
+									"  ]",
+									"}",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"    var data = JSON.parse(responseBody);",
+									"    var valid = tv4.validate(data,schema,false,true);",
+									"    if (valid !== true){",
+									"        console.log(tv4.error);",
+									"    }",
+									"  pm.expect(valid).to.be.true;",
+									"",
+									"});",
+									"",
+									"",
+									"//",
+									"pm.test('Validate Id Post to response json', function () {",
+									"    ",
+									"    //Ao comparar a variavel global com o valor que estava no json, ele estava entendendo que o que estava na variavel era uma string. Tentei utilizar o ParseInt do Javascript",
+									"    //ParseInt funciona perfeitamente no Postman, porém, rodando com o CollectionRunner e Newman, ele não consegue parsear o valor da variavel global. ",
+									"    //Queria ter deixado parametrizado o valor para alteracoes e pro teste ficar mais consistente, sem valores chumbados. Mas não consegui fazer e pensar em algo a tempo.",
+									"    ",
+									"    ",
+									"    ///idPost = parseInt(pm.globals.get(\"idPost\"));",
+									"    var jsonData = pm.response.json();",
+									"    // pm.expect(jsonData.id).to.eql(idPost);",
+									"    pm.expect(jsonData.id).to.eql(1);",
+									"",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"followAuthorizationHeader": true,
+						"followOriginalHttpMethod": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/posts/1",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/posts/{{id not found}}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9cb1d9dc-b1e7-4ca4-a9ba-d5a6857006aa",
+								"exec": [
+									"//daria também pra api retornar uma messagem dizendo que não existe o post pro iD informado",
+									"//pois a api retorna 404 em get com url de rota inexistente (https://jsonplaceholder.typicode.com/posta)",
+									"//talvez pro frontend, os dois casos retornando 404, a mensagem seria a mesma pra dois cenarios diferentes.",
+									"",
+									"pm.test(\"Response time less than 1s\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate json empty to 404\", function (){",
+									"    var jsonData = pm.response.json();",
+									" pm.expect(jsonData).to.be.an('object').that.is.empty;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"followAuthorizationHeader": true,
+						"followOriginalHttpMethod": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/posts/104",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"posts",
+								"104"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/posta (Url Inválida)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9cb1d9dc-b1e7-4ca4-a9ba-d5a6857006aa",
+								"exec": [
+									"pm.test(\"Response time less than 1s\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate json empty to 404\", function (){",
+									"    var jsonData = pm.response.json();",
+									" pm.expect(jsonData).to.be.an('object').that.is.empty;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"followAuthorizationHeader": true,
+						"followOriginalHttpMethod": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/posta",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"posta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/post (QueryParameter invalid = a)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9cb1d9dc-b1e7-4ca4-a9ba-d5a6857006aa",
+								"exec": [
+									"pm.test(\"Response time less than 1s\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"//a Api tem apenas 100 ids de posts, acredito que então é um Integer. ",
+									"// Passando um parameter string, deveria retornar um Bad Request e não um 404 not found, por padroẽs.",
+									"// Mas pensando que é uma api grande e que pode crescer muito, em questão de Id's de posts, talvez num futuro, alteraria o teste pra 404 mesmo, e o banco e aplicação mudariam pra String ou varchar",
+									"",
+									"// O teste está falhando de proposito.",
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"followAuthorizationHeader": true,
+						"followOriginalHttpMethod": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/a",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"a"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Tests GET in url /posts",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "POST (/posts)",
+			"item": [
+				{
+					"name": "/posts (Create Post)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1d102481-be65-4020-ab61-bd38d600f588",
+								"exec": [
+									"",
+									"//Observar tempo de resposta ocilando. Acredito que 1 segundo seja o suficiente mas comigo, houve casos que passou de 1s, o que acho que pode ter algum gargalo.",
+									"// ou Na fila, ou na resposta da aplicação, ou na população do banco e a query de busca do novo Post",
+									"pm.test(\"Response time less than 1s\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"",
+									"var schema = {",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"title\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"body\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"userId\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"id\": {",
+									"      \"type\": \"integer\"",
+									"    }",
+									"  },",
+									"  \"required\": [",
+									"    \"title\",",
+									"    \"body\",",
+									"    \"userId\",",
+									"    \"id\"",
+									"  ]",
+									"}",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"    var data = JSON.parse(responseBody);",
+									"    var valid = tv4.validate(data,schema,false,true);",
+									"    if (valid !== true){",
+									"        console.log(tv4.error);",
+									"    }",
+									"  pm.expect(valid).to.be.true;",
+									"",
+									"});",
+									"",
+									"",
+									"var title= \"tester tester tester tester tester tester tester tester testertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertester\"",
+									"",
+									"",
+									"var body = \"teste lalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalala\"",
+									"",
+									"",
+									"",
+									"pm.test('Validates response to Json Post', function () {",
+									"    ",
+									"    //Ao comparar a variavel global com o valor que estava no json, ele estava entendendo que o que estava na variavel era uma string. Tentei utilizar o ParseInt do Javascript",
+									"    //ParseInt funciona perfeitamente no Postman, porém, rodando com o CollectionRunner e Newman, ele não consegue parsear o valor da variavel global. ",
+									"    //Queria ter deixado parametrizado o valor para alteracoes e pro teste ficar mais consistente, sem valores chumbados. Mas não consegui fazer e pensar em algo a tempo.",
+									"    ",
+									"    ",
+									"    ///idPost = parseInt(pm.globals.get(\"idUser\"));",
+									"    var jsonData = pm.response.json();",
+									"    // pm.expect(jsonData.userId).to.eql(idUser);",
+									"    pm.expect(jsonData.userId).to.eql(1);",
+									"        pm.expect(jsonData.title).to.eql(title);",
+									"    pm.expect(jsonData.body).to.eql(body);",
+									"",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"tester tester tester tester tester tester tester tester testertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertester\",\n\t\"body\": \"teste lalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalala\",\n\t\"userId\": 1\n}"
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/posts/",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"posts",
+								""
+							]
+						},
+						"description": "create post"
+					},
+					"response": []
+				},
+				{
+					"name": "/posts (UserInvalid)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1d102481-be65-4020-ab61-bd38d600f588",
+								"exec": [
+									"",
+									"//Observar tempo de resposta ocilando. Acredito que 1 segundo seja o suficiente mas comigo, houve casos que passou de 1s, o que acho que pode ter algum gargalo.",
+									"// ou Na fila, ou na resposta da aplicação, ou na população do banco e a query de busca do novo Post",
+									"pm.test(\"Response time less than 1s\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"",
+									"//Por estar passando um usuario \"a\" deveria retornar um Bad Request, visto que nao é um usuario valido(tomando base que o userId seja um integer)",
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"type": "text",
+								"value": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"tester tester tester tester tester tester tester tester testertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertester\",\n\t\"body\": \"teste lalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalala\",\n\t\"userId\": \"a\"\n}"
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/posts/",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"posts",
+								""
+							]
+						},
+						"description": "create post"
+					},
+					"response": []
+				},
+				{
+					"name": "/posts (Without Title)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1d102481-be65-4020-ab61-bd38d600f588",
+								"exec": [
+									"",
+									"//Observar tempo de resposta ocilando. Acredito que 1 segundo seja o suficiente mas comigo, houve casos que passou de 1s, o que acho que pode ter algum gargalo.",
+									"// ou Na fila, ou na resposta da aplicação, ou na população do banco e a query de busca do novo Post",
+									"pm.test(\"Response time less than 1s\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"",
+									"//Acredito que seja obrigatorio um title pra criacao de um post, mesmo a aplicaçaõ tendo retornado 201, acredito que seria um 400 com uma message padronizada pela a aplicaçao avisando qual campo está faltando.",
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"type": "text",
+								"value": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"body\": \"teste lalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalala\",\n\t\"userId\": \"a\"\n}"
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/posts/",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"posts",
+								""
+							]
+						},
+						"description": "create post"
+					},
+					"response": []
+				},
+				{
+					"name": "/posts (Without Body)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1d102481-be65-4020-ab61-bd38d600f588",
+								"exec": [
+									"",
+									"//Observar tempo de resposta ocilando. Acredito que 1 segundo seja o suficiente mas comigo, houve casos que passou de 1s, o que acho que pode ter algum gargalo.",
+									"// ou Na fila, ou na resposta da aplicação, ou na população do banco e a query de busca do novo Post",
+									"pm.test(\"Response time less than 1s\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"",
+									"//Acredito que seja obrigatorio um body pra criacao de um post, mesmo a aplicaçaõ tendo retornado 201, acredito que seria um 400 com uma message padronizada pela a aplicaçao avisando qual campo está faltando.",
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"tester tester tester tester tester tester tester tester testertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertester\",\n\t\"userId\": \"a\"\n}"
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/posts/",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"posts",
+								""
+							]
+						},
+						"description": "create post"
+					},
+					"response": []
+				},
+				{
+					"name": "/posts (Invalid Content-Type xml)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1d102481-be65-4020-ab61-bd38d600f588",
+								"exec": [
+									"",
+									"//Observar tempo de resposta ocilando. Acredito que 1 segundo seja o suficiente mas comigo, houve casos que passou de 1s, o que acho que pode ter algum gargalo.",
+									"// ou Na fila, ou na resposta da aplicação, ou na população do banco e a query de busca do novo Post",
+									"pm.test(\"Response time less than 1s\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"",
+									"//Por estar passando um content type xml, teoricamente deveria retornar um erro 415 (unsuportabble midia type).",
+									"pm.test(\"Status code is 415\", function () {",
+									"    pm.response.to.have.status(415);",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/xml"
+							},
+							{
+								"key": "",
+								"type": "text",
+								"value": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<root>\n   <body>teste lalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalalalalalalalalalalaalalalalalalalalalalalalalalalallalala</body>\n   <title>tester tester tester tester tester tester tester tester testertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertestertester</title>\n   <userId>1</userId>\n</root>"
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/posts/",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"posts",
+								""
+							]
+						},
+						"description": "create post"
+					},
+					"response": []
+				}
+			],
+			"description": "Tests Posts in url (/posts)",
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
