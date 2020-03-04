@@ -55,3 +55,10 @@ Basicamente:
 
 
 
+
+### Melhorias pra aplicação:
+
+- Criar paginação e validar nos testes(passando a pagina como parametro e comparando com a paginação que retorna no json)
+ 	- Criar um metodo de autenticação na aplicação por ser publica e  fazer as validações de Auth (se a api tivesse alguma autenticação)
+ 	- verificação do conteudo informado no post (mockados)
+ 	- limite de caracter (caso tivesse descrito)
