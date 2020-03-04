@@ -1,3 +1,4 @@
+
 # project JsonPlaceHolder
 Projeto de automação de testes da api   **https://jsonplaceholder.typicode.com/**
 
@@ -15,19 +16,18 @@ A versão atual é a 1.0.0, sujeita a alteração devido as modificações.
 - Node.js Latest Version [Node.js](https://nodejs.org/en/)
 
 - Após ter o Node.js instalado execute o seguinte comando: 
-```
-$ npm install -g newman```
 
+     `npm install -g newman`
 
 
 
 Com o newman instalado, para rodar é simples:
-```
-$ newman run "MY_COLLECTION"```
+
+   `newman run "MY_COLLECTION"`
+
 No caso, seria:
 
-```
-$ newman run json_placeholdertest.json```
+`newman run json_placeholdertest.json`
 
 
 ### Newman Instalação em ambiente linux com Docker
@@ -51,5 +51,7 @@ Basicamente:
 -Criei um teste que faz a validação da existencia de um post, apenas para fim de ter uma validação. Mas acredito que o melhor cenario seria fazer um e2e ou mockar os dados antes de fazer a chamada. (isso em ambiente de testes)
 - O mesmo serve para o /posts na criação de um post. Por ser algo público e que não está no dominio, nao é possivel validar o Id que foi criado de uma publicação. 
 - Validação de usuario inexistente no post é difícil mensurar pois não temos acesso a base de dados, as vezes passando um usuario extenso "129122191298", pode ter na base de dados.
+
+
 
 
