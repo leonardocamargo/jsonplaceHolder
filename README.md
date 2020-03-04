@@ -45,7 +45,7 @@ Basicamente:
 
 ### Observações: 
 
-- Adicionei alguns comentarios nos testes que executei, pois testei o comportamento que deveria ter e não o que ela está refletindo atualmente.
+- Adicionei alguns comentarios nos testes que executei, pois testei o comportamento que deveria ter e não o que ela está refletindo atualmente. Então é normal alguns testes falharem e foi feito propositalmente.
 - Não consegui parametrizar o iD do Post em algumas chamadas GET, pois o "parseInt" não funcionou no Newman.
 -Por ser uma api que já está em produção e estamos validando dados "reais", não é plausivel validar o conteudo do title, do body, por ser uma api publica e em funcionamento, pode sofrer varias alterações, como exclusão de publicações, alterações de titulos e adição de comentarios nas publicações da Api.
 -Criei um teste que faz a validação da existencia de um post, apenas para fim de ter uma validação. Mas acredito que o melhor cenario seria fazer um e2e ou mockar os dados antes de fazer a chamada. (isso em ambiente de testes)
