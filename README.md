@@ -15,20 +15,18 @@ A versão atual é a 1.0.0, sujeita a alteração devido as modificações.
 - Node.js Latest Version [Node.js](https://nodejs.org/en/)
 
 - Após ter o Node.js instalado execute o seguinte comando: 
-```sh
+```
 $ npm install -g newman```
 
 
 
-Com o newman instalado, para rodar é simples:
-```sh
-$ newman run "MY_COLLECTION"```
 
+Com o newman instalado, para rodar é simples:
+```
+$ newman run "MY_COLLECTION"```
 No caso, seria:
 
-
-
-```sh
+```
 $ newman run json_placeholdertest.json```
 
 
